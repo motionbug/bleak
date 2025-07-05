@@ -1,0 +1,54 @@
+/*!
+ * Bleak - A clean, responsive Ghost theme
+ * Version: 2.0.0
+ * Author: Peter Amende
+ * License: MIT
+ */
+
+// 1. Configuration and helpers
+@import 'abstracts/variables',
+        'abstracts/mixins';
+
+// 2. Base styles
+@import 'base/base';
+
+// 3. Layout components
+@import 'layout/header',
+        'layout/footer';
+
+// 4. Components
+@import 'components/cards',
+        'components/post',
+        'components/newsletter',
+        'components/search',
+        'components/toc';
+
+// 5. Page templates
+@import 'pages/home',
+        'pages/page',
+        'pages/tag',
+        'pages/author',
+        'pages/error';
+
+// 6. Utilities (should be last to override other styles)
+@import 'base/utilities';
+
+// 7. Dark mode (must be after all other styles)
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+  
+  [data-theme="auto"] {
+    --color-bg: #1a1a1a;
+    --color-bg-alt: #2d2d2d;
+    --color-text: #f8f9fa;
+    --color-text-muted: #adb5bd;
+    --color-border: #495057;
+  }
+}
+
+// 8. Print styles
+@media print {
+  @import 'base/print';
+}

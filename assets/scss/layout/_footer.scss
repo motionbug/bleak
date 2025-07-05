@@ -1,0 +1,290 @@
+/* ==========================================================================
+   #FOOTER
+   ========================================================================== */
+
+/**
+ * Site footer styles
+ */
+
+.footer {
+  background-color: var(--color-bg-alt);
+  color: var(--color-text-muted);
+  padding: $spacing-xl 0;
+  margin-top: auto;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  border-top: 1px solid var(--color-border);
+
+  a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: map-get($colors, 'secondary');
+      text-decoration: none;
+    }
+  }
+
+  &-inner {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $container-padding;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-xl;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  // Footer sections
+  &-section {
+    margin-bottom: $spacing-lg;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @include respond-to('md') {
+      margin-bottom: 0;
+    }
+  }
+
+  // Footer heading
+  &-heading {
+    color: var(--color-text);
+    font-size: 1.6rem;
+    font-weight: $font-weight-bold;
+    margin-top: 0;
+    margin-bottom: $spacing-md;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  // Footer navigation
+  &-nav {
+    ul {
+      @include list-unstyled();
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: $spacing-xs;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    a {
+      display: inline-block;
+      padding: $spacing-xs 0;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: map-get($colors, 'secondary');
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  // Footer about
+  &-about {
+    p {
+      margin-top: 0;
+      margin-bottom: $spacing-md;
+    }
+  }
+
+  // Social links
+  &-social {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 (-$spacing-xs) $spacing-md;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.6rem;
+      height: 3.6rem;
+      margin: 0 $spacing-xs $spacing-xs 0;
+      border-radius: 50%;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: map-get($colors, 'secondary');
+        color: #fff;
+        transform: translateY(-2px);
+      }
+    }
+
+    svg {
+      width: 1.8rem;
+      height: 1.8rem;
+      fill: currentColor;
+    }
+  }
+
+  // Newsletter form
+  &-newsletter {
+    .form-group {
+      display: flex;
+      margin-bottom: $spacing-sm;
+    }
+
+    .form-input {
+      flex: 1;
+      padding: $spacing-sm $spacing-md;
+      font-size: 1.4rem;
+      line-height: 1.5;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-right: none;
+      border-radius: $border-radius 0 0 $border-radius;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+      &:focus {
+        outline: 0;
+        border-color: map-get($colors, 'secondary');
+        box-shadow: 0 0 0 0.2rem rgba(map-get($colors, 'secondary'), 0.25);
+      }
+    }
+
+    .form-submit {
+      padding: $spacing-sm $spacing-md;
+      font-size: 1.4rem;
+      font-weight: $font-weight-bold;
+      line-height: 1.5;
+      color: #fff;
+      background-color: map-get($colors, 'primary');
+      border: 1px solid map-get($colors, 'primary');
+      border-radius: 0 $border-radius $border-radius 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: darken(map-get($colors, 'primary'), 10%);
+        border-color: darken(map-get($colors, 'primary'), 10%);
+      }
+    }
+
+    .form-note {
+      font-size: 1.2rem;
+      color: var(--color-text-muted);
+      margin: $spacing-xs 0 0;
+    }
+  }
+
+  // Copyright
+  &-copyright {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--color-text-muted);
+    padding-top: $spacing-lg;
+    margin-top: $spacing-lg;
+    border-top: 1px solid var(--color-border);
+
+    a {
+      color: var(--color-text);
+      font-weight: $font-weight-bold;
+
+      &:hover {
+        color: map-get($colors, 'secondary');
+      }
+    }
+  }
+
+  // Back to top button
+  &-back-to-top {
+    position: fixed;
+    bottom: $spacing-lg;
+    right: $spacing-lg;
+    width: 4rem;
+    height: 4rem;
+    background-color: map-get($colors, 'primary');
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(2rem);
+    transition: all 0.3s ease;
+    z-index: $zindex-fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    &.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    &:hover {
+      background-color: darken(map-get($colors, 'primary'), 10%);
+      transform: translateY(-2px);
+    }
+
+    svg {
+      width: 1.8rem;
+      height: 1.8rem;
+      fill: currentColor;
+    }
+  }
+
+  // Footer variations
+  &--simple {
+    text-align: center;
+    padding: $spacing-lg 0;
+
+    .footer-inner {
+      display: block;
+    }
+
+    .footer-copyright {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+  }
+}
+
+// Dark mode specific styles
+[data-theme="dark"] {
+  .footer {
+    background-color: var(--color-bg-alt);
+    border-top-color: var(--color-border);
+
+    &-social a {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--color-text);
+
+      &:hover {
+        background-color: map-get($colors, 'secondary');
+        color: #fff;
+      }
+    }
+  }
+}

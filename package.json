@@ -1,16 +1,16 @@
 {
   "name": "bleak",
-  "description": "Ghost Theme",
+  "description": "A clean, responsive Ghost theme",
   "demo": "https://bleak.peteramende.de",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "engines": {
-    "ghost": ">=3.0.0",
-    "ghost-api": "v3"
+    "ghost": ">=5.0.0 <6.0.0",
+    "ghost-api": "v5"
   },
   "license": "MIT",
   "screenshots": {
-    "desktop": "src/screenshot-desktop.jpg",
-    "mobile": "src/screenshot-mobile.jpg"
+    "desktop": "assets/screenshot-desktop.jpg",
+    "mobile": "assets/screenshot-mobile.jpg"
   },
   "author": {
     "name": "Peter Amende",
@@ -20,45 +20,81 @@
   "gpm": {
     "type": "theme",
     "categories": [
-      "Magazine"
+      "Magazine",
+      "Minimal",
+      "Blog"
     ]
   },
   "keywords": [
     "ghost",
     "theme",
-    "ghost-theme"
+    "ghost-theme",
+    "minimal",
+    "clean",
+    "responsive"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/zutrinken/bleak.git"
   },
+  "scripts": {
+    "dev": "gulp dev",
+    "build": "gulp build",
+    "zip": "gulp zip",
+    "test": "gscan ."
+  },
   "devDependencies": {
-    "autoprefixer-core": "^6.0.1",
-    "grunt": "^1.0.1",
-    "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^2.2.1",
-    "grunt-contrib-uglify": "^3.3.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-postcss": "^0.9.0",
-    "grunt-sass": "^2.1.0",
-    "load-grunt-tasks": "^3.5.2"
+    "autoprefixer": "^10.4.15",
+    "cssnano": "^6.0.1",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^8.0.0",
+    "gulp-postcss": "^9.0.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-zip": "^5.1.0",
+    "postcss": "^8.4.28",
+    "sass": "^1.64.1"
   },
   "config": {
-    "posts_per_page": 15,
+    "posts_per_page": 12,
+    "card_assets": true,
     "image_sizes": {
+      "xxs": {
+        "width": 100
+      },
+      "xs": {
+        "width": 200
+      },
       "s": {
-        "width": 320
+        "width": 400
       },
       "m": {
-        "width": 640
+        "width": 800
       },
       "l": {
-        "width": 960
+        "width": 1200
       },
       "xl": {
+        "width": 1600
+      },
+      "xxl": {
         "width": 1920
       }
-    }
+    },
+    "custom_templates": [
+      {
+        "name": "Custom Page",
+        "filename": "custom-page"
+      },
+      {
+        "name": "Newsletter",
+        "filename": "newsletter",
+        "for": ["page"]
+      }
+    ]
   }
 }

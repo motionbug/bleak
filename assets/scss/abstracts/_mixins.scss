@@ -1,0 +1,276 @@
+// Media query manager
+//
+// @param {String} $breakpoint - Breakpoint name from $breakpoints map
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+// Clearfix
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+@mixin clearfix() {
+  &::before,
+  &::after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &::after {
+    clear: both;
+  }
+}
+
+// Text truncation
+//
+// Prevent text from wrapping onto multiple lines, and truncate with an ellipsis.
+//
+// 1. Ensure that the node has a maximum width after which truncation can occur.
+// 2. Fix for IE 8/9 if `word-wrap: break-word` is in effect on ancestor nodes.
+@mixin text-truncate() {
+  max-width: 100%; // 1
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal; // 2
+}
+
+// CSS Triangle
+//
+// Create a CSS triangle on a given element.
+//
+// @param {String} $direction - The direction the triangle should point (up, right, down, left)
+// @param {Color} $color [currentcolor] - Color for the triangle
+// @param {Length} $width [1em] - Width of the triangle
+// @param {Length} $height [($width / 2)] - Height of the triangle
+@mixin triangle($direction, $color: currentcolor, $width: 1em, $height: ($width / 2)) {
+  @if not index("up" "up-right" "right" "down-right" "down" "down-left" "left" "up-left", $direction) {
+    @error "Direction must be one of: up, up-right, right, down-right, down, down-left, left, up-left";
+  } @else {
+    border-style: solid;
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+    
+    @if $direction == "up" {
+      border-color: transparent transparent $color;
+      border-width: 0 ($width / 2) $height;
+    } @else if $direction == "up-right" {
+      border-color: transparent $color transparent transparent;
+      border-width: 0 $width $width 0;
+    } @else if $direction == "right" {
+      border-color: transparent transparent transparent $color;
+      border-width: ($height / 2) 0 ($height / 2) $width;
+    } @else if $direction == "down-right" {
+      border-color: transparent transparent $color;
+      border-width: 0 0 $width $width;
+    } @else if $direction == "down" {
+      border-color: $color transparent transparent;
+      border-width: $height ($width / 2) 0;
+    } @else if $direction == "down-left" {
+      border-color: transparent transparent transparent $color;
+      border-width: $width 0 0 $width;
+    } @else if $direction == "left" {
+      border-color: transparent $color transparent transparent;
+      border-width: ($height / 2) $width ($height / 2) 0;
+    } @else if $direction == "up-left" {
+      border-color: $color transparent transparent;
+      border-width: $width $width 0 0;
+    }
+  }
+}
+
+// Visually hidden
+//
+// Make an element visually hidden but accessible to screen readers.
+@mixin visually-hidden() {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Reset list
+//
+// Remove default list styles.
+@mixin list-unstyled() {
+  padding-left: 0;
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+// Box shadow
+//
+// Easily add box shadows to elements.
+//
+// @param {String} $shadow - Shadow value
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
+// Transition
+//
+// Add CSS transitions to elements.
+//
+// @param {String} $properties - Properties to transition
+// @param {Duration} $duration [0.2s] - Duration of the transition
+// @param {Timing-function} $timing [ease-in-out] - Timing function
+// @param {Duration} $delay [0s] - Delay before the transition starts
+@mixin transition($properties, $duration: 0.2s, $timing: ease-in-out, $delay: 0s) {
+  -webkit-transition: $properties $duration $timing $delay;
+  -moz-transition: $properties $duration $timing $delay;
+  -o-transition: $properties $duration $timing $delay;
+  transition: $properties $duration $timing $delay;
+}
+
+// Transform
+//
+// Apply 2D or 3D transformations to an element.
+//
+// @param {String} $transforms - Transform functions to apply
+@mixin transform($transforms) {
+  -webkit-transform: $transforms;
+  -moz-transform: $transforms;
+  -ms-transform: $transforms;
+  -o-transform: $transforms;
+  transform: $transforms;
+}
+
+// Aspect ratio
+//
+// Maintain a specific aspect ratio for an element.
+//
+// @param {Number} $width - Width ratio
+// @param {Number} $height - Height ratio
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Placeholder text
+//
+// Style the placeholder text in form inputs.
+@mixin placeholder {
+  &::-webkit-input-placeholder { @content; }
+  &:-moz-placeholder           { @content; }
+  &::-moz-placeholder          { @content; }
+  &:-ms-input-placeholder      { @content; }
+  &::placeholder               { @content; }
+}
+
+// Font smoothing
+//
+// Improve font rendering on WebKit and Firefox.
+@mixin font-smoothing($value: on) {
+  @if $value == on {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  } @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+// Hide text
+//
+// Hide text while making it readable for screen readers.
+@mixin hide-text() {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+// Text overflow
+//
+// Easily truncate text with an ellipsis.
+@mixin text-overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Opacity
+//
+// Cross-browser opacity support.
+//
+// @param {Number} $opacity - Opacity value from 0 to 1
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+// Keyframes
+//
+// Create cross-browser compatible keyframe animations.
+//
+// @param {String} $animation-name - Name of the animation
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+// Animation
+//
+// Apply CSS animations with cross-browser support.
+//
+// @param {String} $str - Animation properties
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}

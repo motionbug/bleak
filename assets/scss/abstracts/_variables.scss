@@ -1,0 +1,92 @@
+// Colors
+$colors: (
+  'primary': #2c3e50,
+  'secondary': #3498db,
+  'text': #2c3e50,
+  'text-light': #7f8c8d,
+  'background': #ffffff,
+  'background-alt': #f8f9fa,
+  'border': #e1e4e8,
+  'success': #2ecc71,
+  'warning': #f39c12,
+  'error': #e74c3c,
+  'info': #3498db
+);
+
+// Typography
+$font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+$font-serif: Georgia, serif;
+$font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+$font-size-base: 1.6rem;
+$line-height-base: 1.6;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+// Spacing
+$spacing-unit: 1.6rem;
+$spacing-xs: $spacing-unit * 0.25;
+$spacing-sm: $spacing-unit * 0.5;
+$spacing-md: $spacing-unit;
+$spacing-lg: $spacing-unit * 2;
+$spacing-xl: $spacing-unit * 4;
+
+// Breakpoints
+$breakpoints: (
+  'xs': 0,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+  'xxl': 1400px
+);
+
+// Container
+$container-max-width: 1240px;
+$container-padding: 2.4rem;
+
+// Border radius
+$border-radius-sm: 0.3rem;
+$border-radius: 0.4rem;
+$border-radius-lg: 0.6rem;
+$border-radius-pill: 50rem;
+
+// Transitions
+$transition-base: all 0.2s ease-in-out;
+$transition-fade: opacity 0.15s linear;
+
+// Z-index
+$zindex-dropdown: 1000;
+$zindex-sticky: 1020;
+$zindex-fixed: 1030;
+$zindex-modal-backdrop: 1040;
+$zindex-modal: 1050;
+$zindex-popover: 1060;
+$zindex-tooltip: 1070;
+
+// Grid
+$grid-columns: 12;
+$grid-gutter-width: 3rem;
+
+// Shadows
+$shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+$shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+
+// Dark mode variables
+[data-theme="dark"] {
+  --color-bg: #1a1a1a;
+  --color-bg-alt: #2d2d2d;
+  --color-text: #f8f9fa;
+  --color-text-muted: #adb5bd;
+  --color-border: #495057;
+}
+
+// Light mode variables (default)
+:root {
+  --color-bg: #ffffff;
+  --color-bg-alt: #f8f9fa;
+  --color-text: #212529;
+  --color-text-muted: #6c757d;
+  --color-border: #dee2e6;
+}

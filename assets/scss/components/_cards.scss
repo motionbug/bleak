@@ -1,0 +1,480 @@
+/* ==========================================================================
+   #CARDS
+   ========================================================================== */
+
+/**
+ * Card component styles
+ * Used for post cards, feature cards, etc.
+ */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  word-wrap: break-word;
+  background-color: var(--color-bg);
+  background-clip: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: $border-radius;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: $shadow;
+    text-decoration: none;
+  }
+
+  // Card image
+  &-img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    transition: transform 0.3s ease;
+
+    .card:hover & {
+      transform: scale(1.05);
+    }
+
+    &-container {
+      position: relative;
+      overflow: hidden;
+      background-color: var(--color-bg-alt);
+    }
+  }
+
+  // Card body
+  &-body {
+    flex: 1 1 auto;
+    padding: $spacing-md;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Card title
+  &-title {
+    margin-top: 0;
+    margin-bottom: $spacing-sm;
+    font-size: 1.8rem;
+    font-weight: $font-weight-bold;
+    line-height: 1.3;
+    color: var(--color-text);
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: map-get($colors, 'secondary');
+        text-decoration: none;
+      }
+    }
+  }
+
+  // Card text
+  &-text {
+    margin-top: 0;
+    margin-bottom: $spacing-md;
+    color: var(--color-text-muted);
+    flex-grow: 1;
+  }
+
+  // Card meta
+  &-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: auto;
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+
+    > * {
+      margin-right: $spacing-sm;
+      margin-bottom: $spacing-xs;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: map-get($colors, 'secondary');
+        text-decoration: none;
+      }
+    }
+  }
+
+  // Card footer
+  &-footer {
+    padding: $spacing-sm $spacing-md;
+    background-color: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  // Card badge
+  &-badge {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+    font-weight: $font-weight-bold;
+    line-height: 1;
+    color: #fff;
+    background-color: map-get($colors, 'primary');
+    border-radius: $border-radius-pill;
+    z-index: 1;
+  }
+
+  // Card author
+  &-author {
+    display: flex;
+    align-items: center;
+
+    &-image {
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 50%;
+      margin-right: $spacing-xs;
+      object-fit: cover;
+    }
+
+    &-name {
+      font-size: 1.2rem;
+      font-weight: $font-weight-bold;
+      color: var(--color-text);
+      margin: 0;
+      line-height: 1.2;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: map-get($colors, 'secondary');
+          text-decoration: none;
+        }
+      }
+    }
+
+    &-date {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+    }
+  }
+
+  // Card actions
+  &-actions {
+    display: flex;
+    align-items: center;
+
+    > * {
+      margin-left: $spacing-sm;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+
+    a {
+      color: var(--color-text-muted);
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: map-get($colors, 'secondary');
+      }
+    }
+  }
+
+  // Card link
+  &-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 0;
+  }
+
+  // Card hover effect
+  &-hover {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.7) 100%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    .card-title,
+    .card-meta {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+
+    .card-meta {
+      transition-delay: 0.1s;
+    }
+
+    &:hover {
+      &::before {
+        opacity: 1;
+      }
+
+      .card-title,
+      .card-meta {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  // Card overlay
+  &-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: $spacing-lg;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+    z-index: 2;
+
+    .card-title,
+    .card-meta {
+      color: #fff;
+    }
+  }
+
+  // Card horizontal
+  &-horizontal {
+    flex-direction: row;
+
+    .card-img {
+      width: 40%;
+      height: auto;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: $border-radius;
+    }
+
+    .card-body {
+      width: 60%;
+    }
+
+    @include respond-to('md', 'down') {
+      flex-direction: column;
+
+      .card-img,
+      .card-body {
+        width: 100%;
+      }
+
+      .card-img {
+        border-bottom-left-radius: 0;
+        border-top-right-radius: $border-radius;
+      }
+    }
+  }
+
+  // Card deck
+  &-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+    gap: $spacing-lg;
+  }
+
+  // Card group
+  &-group {
+    display: flex;
+    flex-direction: column;
+
+    > .card {
+      margin-bottom: $spacing-md;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    @include respond-to('md') {
+      flex-flow: row wrap;
+      margin-right: -$spacing-md;
+      margin-left: -$spacing-md;
+
+      > .card {
+        flex: 1 0 0%;
+        margin-right: $spacing-md;
+        margin-bottom: 0;
+        margin-left: $spacing-md;
+      }
+    }
+  }
+
+  // Card grid
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    gap: $spacing-lg;
+
+    &-sm {
+      grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    }
+
+    &-lg {
+      grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
+    }
+  }
+
+  // Card variations
+  &-primary {
+    border-color: map-get($colors, 'primary');
+
+    .card-header {
+      background-color: map-get($colors, 'primary');
+      color: #fff;
+      border-bottom-color: map-get($colors, 'primary');
+    }
+  }
+
+  &-secondary {
+    border-color: map-get($colors, 'secondary');
+
+    .card-header {
+      background-color: map-get($colors, 'secondary');
+      color: #fff;
+      border-bottom-color: map-get($colors, 'secondary');
+    }
+  }
+
+  // Card sizes
+  &-sm {
+    .card-body {
+      padding: $spacing-sm;
+    }
+  }
+
+  &-lg {
+    .card-body {
+      padding: $spacing-lg;
+    }
+  }
+
+  // Card with shadow
+  &-shadow {
+    box-shadow: $shadow;
+
+    &:hover {
+      box-shadow: $shadow-lg;
+    }
+  }
+
+  // Card with border
+  &-bordered {
+    border-width: 2px;
+  }
+
+  // Card with no border
+  &-borderless {
+    border: none;
+  }
+
+  // Card with hover effect
+  &-hoverable {
+    &:hover {
+      transform: translateY(-0.5rem);
+      box-shadow: $shadow;
+    }
+  }
+
+  // Card with image overlay
+  &-img-overlay {
+    position: relative;
+    color: #fff;
+
+    .card-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      border-radius: $border-radius;
+    }
+
+    .card-img-overlay {
+      position: relative;
+      z-index: 1;
+      padding: $spacing-lg;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0.7) 100%
+      );
+      border-radius: $border-radius;
+    }
+
+    .card-title,
+    .card-text,
+    .card-meta {
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+// Dark mode specific styles
+[data-theme="dark"] {
+  .card {
+    background-color: var(--color-bg);
+    border-color: var(--color-border);
+
+    &-footer {
+      background-color: var(--color-bg-alt);
+      border-top-color: var(--color-border);
+    }
+
+    &-hover {
+      .card-title,
+      .card-meta {
+        color: #fff;
+      }
+    }
+  }
+}

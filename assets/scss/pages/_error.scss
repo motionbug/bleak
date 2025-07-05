@@ -1,0 +1,214 @@
+/* ==========================================================================
+   #ERROR
+   ========================================================================== */
+
+/**
+ * Error page styles (404, 500, etc.)
+ */
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+  padding: $spacing-xxl $spacing-lg;
+  
+  &-code {
+    font-size: 12rem;
+    font-weight: $font-weight-bold;
+    line-height: 1;
+    margin: 0 0 $spacing-md;
+    background: linear-gradient(135deg, map-get($colors, 'primary'), map-get($colors, 'secondary'));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    position: relative;
+    
+    @include respond-to('sm') {
+      font-size: 16rem;
+    }
+    
+    @include respond-to('md') {
+      font-size: 20rem;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -$spacing-md;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8rem;
+      height: 0.4rem;
+      background: linear-gradient(90deg, map-get($colors, 'primary'), map-get($colors, 'secondary'));
+      border-radius: $border-radius-pill;
+    }
+  }
+  
+  &-title {
+    font-size: 2.8rem;
+    font-weight: $font-weight-bold;
+    margin: $spacing-xl 0 $spacing-md;
+    color: var(--color-text);
+    
+    @include respond-to('md') {
+      font-size: 3.6rem;
+    }
+  }
+  
+  &-message {
+    font-size: 1.8rem;
+    color: var(--color-text-muted);
+    max-width: 60rem;
+    margin: 0 auto $spacing-xl;
+    line-height: 1.6;
+    
+    @include respond-to('md') {
+      font-size: 2rem;
+    }
+  }
+  
+  &-search {
+    max-width: 50rem;
+    width: 100%;
+    margin: 0 auto $spacing-xl;
+    position: relative;
+    
+    &-input {
+      width: 100%;
+      padding: $spacing-md $spacing-lg;
+      font-size: 1.6rem;
+      border: 1px solid var(--color-border);
+      border-radius: $border-radius-pill;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      transition: all 0.2s ease;
+      padding-right: 5rem;
+      
+      &:focus {
+        outline: none;
+        border-color: map-get($colors, 'primary');
+        box-shadow: 0 0 0 3px rgba(map-get($colors, 'primary'), 0.1);
+      }
+      
+      &::placeholder {
+        color: var(--color-text-muted);
+        opacity: 0.7;
+      }
+    }
+    
+    &-button {
+      position: absolute;
+      top: 50%;
+      right: $spacing-xs;
+      transform: translateY(-50%);
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background-color: map-get($colors, 'primary');
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: darken(map-get($colors, 'primary'), 10%);
+        transform: translateY(-50%) scale(1.05);
+      }
+      
+      svg {
+        width: 1.8rem;
+        height: 1.8rem;
+        fill: currentColor;
+      }
+    }
+  }
+  
+  &-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 (-$spacing-sm) (-$spacing-sm);
+    
+    &-item {
+      margin: 0 $spacing-sm $spacing-sm;
+    }
+    
+    &-link {
+      display: inline-flex;
+      align-items: center;
+      padding: $spacing-sm $spacing-lg;
+      font-size: 1.4rem;
+      font-weight: $font-weight-bold;
+      color: #fff;
+      background: linear-gradient(135deg, map-get($colors, 'primary'), map-get($colors, 'secondary'));
+      border-radius: $border-radius-pill;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        transform: translateY(-0.2rem);
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+      }
+      
+      svg {
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: $spacing-xs;
+        fill: currentColor;
+      }
+      
+      &--outline {
+        background: transparent;
+        color: var(--color-text);
+        border: 1px solid var(--color-border);
+        
+        &:hover {
+          background-color: var(--color-bg-alt);
+          border-color: transparent;
+        }
+      }
+    }
+  }
+  
+  &-illustration {
+    max-width: 40rem;
+    margin: $spacing-xxl auto 0;
+    opacity: 0.8;
+    
+    svg, img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+// Dark mode specific styles
+[data-theme="dark"] {
+  .error {
+    &-search {
+      &-input {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+    
+    &-links-link {
+      &--outline {
+        border-color: rgba(255, 255, 255, 0.1);
+        
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.05);
+        }
+      }
+    }
+  }
+}
