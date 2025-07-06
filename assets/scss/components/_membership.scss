@@ -1,0 +1,371 @@
+/* ==========================================================================
+   #MEMBERSHIP
+   ========================================================================== */
+
+/**
+ * Membership and subscription components
+ * Used for member authentication, account management, and subscription flows
+ */
+
+// Member authentication forms (signup, signin, reset password)
+.member-auth-form {
+  max-width: 48rem;
+  margin: 0 auto $spacing-xxl;
+  padding: $spacing-xl;
+  background-color: var(--color-bg-alt);
+  border-radius: $border-radius-lg;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.05);
+  
+  @include respond-to('sm') {
+    padding: $spacing-xxl;
+  }
+  
+  // Form header
+  &-header {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+    
+    &-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 6.4rem;
+      height: 6.4rem;
+      margin-bottom: $spacing-lg;
+      background-color: rgba(map-get($colors, 'primary'), 0.1);
+      border-radius: 50%;
+      
+      svg {
+        width: 3.2rem;
+        height: 3.2rem;
+        fill: map-get($colors, 'primary');
+      }
+    }
+    
+    &-title {
+      font-size: 2.8rem;
+      font-weight: $font-weight-bold;
+      margin: 0 0 $spacing-xs;
+      color: var(--color-text);
+      
+      @include respond-to('sm') {
+        font-size: 3.2rem;
+      }
+    }
+    
+    &-description {
+      font-size: 1.6rem;
+      color: var(--color-text-muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+  }
+  
+  // Form group
+  &-group {
+    margin-bottom: $spacing-lg;
+    
+    &--checkbox {
+      display: flex;
+      align-items: flex-start;
+    }
+  }
+  
+  // Form label
+  &-label {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-xs;
+    color: var(--color-text);
+    
+    &-required {
+      color: #dc3545;
+      margin-left: 0.2rem;
+    }
+  }
+  
+  // Form input
+  &-input {
+    display: block;
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    background-clip: padding-box;
+    border: 1px solid var(--color-border);
+    border-radius: $border-radius;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    
+    &:focus {
+      border-color: map-get($colors, 'primary');
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(map-get($colors, 'primary'), 0.1);
+    }
+    
+    &::placeholder {
+      color: var(--color-text-muted);
+      opacity: 0.7;
+    }
+    
+    &:disabled,
+    &[readonly] {
+      background-color: var(--color-bg-alt);
+      opacity: 1;
+    }
+  }
+  
+  // Form checkbox
+  &-checkbox {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    margin-top: 0.3rem;
+    margin-right: $spacing-sm;
+    border: 1px solid var(--color-border);
+    border-radius: $border-radius-sm;
+    background-color: var(--color-bg);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    
+    &:checked {
+      background-color: map-get($colors, 'primary');
+      border-color: map-get($colors, 'primary');
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 1.2rem;
+    }
+    
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(map-get($colors, 'primary'), 0.25);
+    }
+  }
+  
+  // Form checkbox label
+  &-checkbox-label {
+    font-size: 1.4rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    
+    a {
+      color: map-get($colors, 'primary');
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  // Form footer
+  &-footer {
+    margin-top: $spacing-xl;
+    text-align: center;
+  }
+  
+  // Form submit button
+  &-submit {
+    display: block;
+    width: 100%;
+    padding: $spacing-sm $spacing-lg;
+    font-size: 1.6rem;
+    font-weight: $font-weight-bold;
+    line-height: 1.5;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: map-get($colors, 'primary');
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: $spacing-lg;
+    
+    &:hover {
+      background-color: darken(map-get($colors, 'primary'), 10%);
+      text-decoration: none;
+      color: #fff;
+    }
+    
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 0.3rem rgba(map-get($colors, 'primary'), 0.25);
+    }
+    
+    &:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+    
+    &--outline {
+      background-color: transparent;
+      border-color: map-get($colors, 'primary');
+      color: map-get($colors, 'primary');
+      
+      &:hover {
+        background-color: rgba(map-get($colors, 'primary'), 0.1);
+      }
+    }
+  }
+  
+  // Form link
+  &-link {
+    display: inline-block;
+    font-size: 1.4rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    margin: 0 $spacing-xxs;
+    
+    &:hover {
+      color: var(--color-text);
+      text-decoration: underline;
+    }
+    
+    &--primary {
+      color: map-get($colors, 'primary');
+      font-weight: $font-weight-medium;
+      
+      &:hover {
+        color: darken(map-get($colors, 'primary'), 15%);
+      }
+    }
+  }
+  
+  // Form divider
+  &-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: $spacing-lg 0;
+    color: var(--color-text-muted);
+    font-size: 1.4rem;
+    
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: var(--color-border);
+    }
+    
+    &::before {
+      margin-right: $spacing-md;
+    }
+    
+    &::after {
+      margin-left: $spacing-md;
+    }
+  }
+  
+  // Social login buttons
+  &-social {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: $spacing-sm;
+    margin-bottom: $spacing-lg;
+    
+    &-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: $spacing-xs $spacing-sm;
+      font-size: 1.4rem;
+      font-weight: $font-weight-medium;
+      color: #fff;
+      text-decoration: none;
+      border-radius: $border-radius;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+      }
+      
+      svg {
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-right: $spacing-xs;
+        fill: currentColor;
+      }
+      
+      &--facebook {
+        background-color: #1877f2;
+        
+        &:hover {
+          background-color: darken(#1877f2, 5%);
+        }
+      }
+      
+      &--google {
+        background-color: #ea4335;
+        
+        &:hover {
+          background-color: darken(#ea4335, 5%);
+        }
+      }
+      
+      &--github {
+        background-color: #333;
+        
+        &:hover {
+          background-color: darken(#333, 5%);
+        }
+      }
+    }
+  }
+  
+  // Form message (success, error, notice)
+  &-message {
+    padding: $spacing-md $spacing-lg;
+    margin-bottom: $spacing-lg;
+    border-radius: $border-radius;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    
+    &--success {
+      background-color: rgba(40, 167, 69, 0.1);
+      color: #28a745;
+      border-left: 0.3rem solid #28a745;
+    }
+    
+    &--error {
+      background-color: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+      border-left: 0.3rem solid #dc3545;
+    }
+    
+    &--notice {
+      background-color: rgba(255, 193, 7, 0.1);
+      color: #ffc107;
+      border-left: 0.3rem solid #ffc107;
+    }
+    
+    p {
+      margin: 0;
+      
+      &:not(:last-child) {
+        margin-bottom: $spacing-xs;
+      }
+    }
+    
+    a {
+      color: inherit;
+      text-decoration: underline;
+      font-weight: $font-weight-medium;
+      
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

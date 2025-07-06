@@ -1,0 +1,751 @@
+/* ==========================================================================
+   #COMMENTS
+   ========================================================================== */
+
+/**
+ * Comments section styles
+ * Used for displaying post comments and the comment form
+ */
+
+.comments {
+  margin: $spacing-xxl 0;
+  
+  // Header with comment count
+  &-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-xl;
+    padding-bottom: $spacing-sm;
+    border-bottom: 1px solid var(--color-border);
+    
+    &-title {
+      font-size: 1.8rem;
+      font-weight: $font-weight-bold;
+      margin: 0 $spacing-sm 0 0;
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+      
+      svg {
+        width: 2rem;
+        height: 2rem;
+        margin-right: $spacing-xs;
+        fill: currentColor;
+      }
+    }
+    
+    &-count {
+      font-size: 1.4rem;
+      color: var(--color-text-muted);
+      background-color: var(--color-bg-alt);
+      padding: 0.2rem $spacing-xs;
+      border-radius: $border-radius-sm;
+    }
+  }
+  
+  // Comment list
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+    // Nested comments
+    .comments-list {
+      margin-left: $spacing-lg;
+      padding-left: $spacing-lg;
+      border-left: 1px solid var(--color-border);
+      
+      @include respond-to('md') {
+        margin-left: 6rem;
+      }
+    }
+  }
+  
+  // Individual comment
+  &-item {
+    margin-bottom: $spacing-xl;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    &-inner {
+      position: relative;
+      background-color: var(--color-bg-alt);
+      border-radius: $border-radius;
+      padding: $spacing-lg;
+      transition: box-shadow 0.2s ease;
+      
+      &:hover {
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.05);
+      }
+    }
+    
+    // Highlighted/featured comment
+    &--highlighted {
+      .comments-item-inner {
+        border: 1px solid rgba(map-get($colors, 'primary'), 0.2);
+        background-color: rgba(map-get($colors, 'primary'), 0.03);
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 4px;
+          height: 100%;
+          background: linear-gradient(to bottom, 
+            map-get($colors, 'primary'), 
+            map-get($colors, 'secondary')
+          );
+          border-top-left-radius: $border-radius;
+          border-bottom-left-radius: $border-radius;
+        }
+      }
+    }
+  }
+  
+  // Comment header with author info
+  &-header-wrapper {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: $spacing-sm;
+  }
+  
+  // Author avatar
+  &-avatar {
+    flex-shrink: 0;
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: $spacing-md;
+    background-color: var(--color-bg);
+    
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    &-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-bg);
+      color: var(--color-text-muted);
+      font-size: 1.8rem;
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+    }
+  }
+  
+  // Author info
+  &-author {
+    flex: 1;
+    
+    &-name {
+      font-size: 1.6rem;
+      font-weight: $font-weight-bold;
+      margin: 0 0 $spacing-xxs;
+      line-height: 1.2;
+      color: var(--color-text);
+      
+      a {
+        color: inherit;
+        text-decoration: none;
+        
+        &:hover {
+          color: map-get($colors, 'primary');
+        }
+      }
+    }
+    
+    &-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 1.3rem;
+      color: var(--color-text-muted);
+      
+      > * {
+        margin-right: $spacing-sm;
+        display: flex;
+        align-items: center;
+        
+        &:last-child {
+          margin-right: 0;
+        }
+        
+        svg {
+          width: 1.4rem;
+          height: 1.4rem;
+          margin-right: 0.3rem;
+          fill: currentColor;
+        }
+      }
+      
+      a {
+        color: inherit;
+        text-decoration: none;
+        
+        &:hover {
+          color: var(--color-text);
+          text-decoration: underline;
+        }
+      }
+    }
+    
+    &-badge {
+      display: inline-block;
+      font-size: 1rem;
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem $spacing-xxs;
+      border-radius: $border-radius-sm;
+      background-color: var(--color-bg);
+      color: var(--color-text-muted);
+      margin-left: $spacing-xs;
+    }
+  }
+  
+  // Comment content
+  &-content {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin: $spacing-md 0;
+    
+    p {
+      margin: 0 0 $spacing-sm;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    a {
+      color: map-get($colors, 'primary');
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    
+    // Code blocks in comments
+    pre, code {
+      font-family: $font-family-mono;
+      font-size: 1.4rem;
+      background-color: var(--color-bg);
+      border-radius: $border-radius-sm;
+      padding: 0.2rem 0.4rem;
+    }
+    
+    pre {
+      padding: $spacing-sm;
+      overflow-x: auto;
+      margin: $spacing-sm 0;
+      
+      code {
+        padding: 0;
+        background: none;
+      }
+    }
+    
+    // Blockquotes in comments
+    blockquote {
+      margin: $spacing-md 0;
+      padding: $spacing-sm $spacing-md $spacing-sm $spacing-lg;
+      border-left: 0.3rem solid var(--color-border);
+      color: var(--color-text-muted);
+      font-style: italic;
+      
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    // Lists in comments
+    ul, ol {
+      margin: $spacing-sm 0 $spacing-sm $spacing-lg;
+      padding: 0;
+      
+      ul, ol {
+        margin-top: $spacing-xs;
+        margin-bottom: 0;
+      }
+    }
+    
+    ul {
+      list-style-type: disc;
+    }
+    
+    ol {
+      list-style-type: decimal;
+    }
+    
+    // Images in comments
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: $border-radius-sm;
+      margin: $spacing-sm 0;
+    }
+  }
+  
+  // Comment actions
+  &-actions {
+    display: flex;
+    align-items: center;
+    margin-top: $spacing-md;
+    padding-top: $spacing-sm;
+    border-top: 1px solid var(--color-border);
+    
+    &-button {
+      display: inline-flex;
+      align-items: center;
+      background: none;
+      border: none;
+      color: var(--color-text-muted);
+      font-size: 1.3rem;
+      font-weight: $font-weight-medium;
+      padding: $spacing-xxs $spacing-xs;
+      margin-right: $spacing-sm;
+      border-radius: $border-radius-sm;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        color: map-get($colors, 'primary');
+        background-color: var(--color-bg);
+      }
+      
+      &[aria-pressed="true"] {
+        color: map-get($colors, 'primary');
+        font-weight: $font-weight-bold;
+      }
+      
+      svg {
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: $spacing-xxs;
+        fill: currentColor;
+      }
+      
+      &-count {
+        margin-left: 0.3rem;
+        font-weight: $font-weight-normal;
+      }
+    }
+    
+    // Reply button
+    &-reply {
+      margin-left: auto;
+    }
+  }
+  
+  // Comment form
+  &-form {
+    margin-top: $spacing-xxl;
+    
+    &-title {
+      font-size: 2rem;
+      font-weight: $font-weight-bold;
+      margin: 0 0 $spacing-lg;
+      color: var(--color-text);
+      
+      @include respond-to('md') {
+        font-size: 2.4rem;
+      }
+    }
+    
+    &-description {
+      font-size: 1.4rem;
+      color: var(--color-text-muted);
+      margin: 0 0 $spacing-lg;
+      
+      a {
+        color: map-get($colors, 'primary');
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    
+    &-fields {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-md;
+      margin-bottom: $spacing-md;
+      
+      @include respond-to('sm') {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .form-group {
+        margin-bottom: 0;
+      }
+    }
+    
+    &-group {
+      margin-bottom: $spacing-md;
+      
+      &--hidden {
+        display: none;
+      }
+    }
+    
+    &-label {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: $font-weight-medium;
+      margin-bottom: $spacing-xs;
+      color: var(--color-text);
+      
+      &-required {
+        color: #dc3545;
+        margin-left: 0.2rem;
+      }
+    }
+    
+    &-input,
+    &-textarea {
+      display: block;
+      width: 100%;
+      padding: $spacing-sm $spacing-md;
+      font-size: 1.5rem;
+      line-height: 1.5;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-clip: padding-box;
+      border: 1px solid var(--color-border);
+      border-radius: $border-radius;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      
+      &:focus {
+        border-color: map-get($colors, 'primary');
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(map-get($colors, 'primary'), 0.1);
+      }
+      
+      &::placeholder {
+        color: var(--color-text-muted);
+        opacity: 0.7;
+      }
+      
+      &:disabled,
+      &[readonly] {
+        background-color: var(--color-bg-alt);
+        opacity: 1;
+      }
+    }
+    
+    &-textarea {
+      min-height: 15rem;
+      resize: vertical;
+    }
+    
+    &-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: $spacing-lg;
+    }
+    
+    &-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: $spacing-sm $spacing-lg;
+      font-size: 1.5rem;
+      font-weight: $font-weight-bold;
+      line-height: 1.5;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      user-select: none;
+      background-color: map-get($colors, 'primary');
+      border: 1px solid transparent;
+      border-radius: $border-radius;
+      transition: all 0.2s ease-in-out;
+      
+      &:hover {
+        background-color: darken(map-get($colors, 'primary'), 10%);
+        text-decoration: none;
+      }
+      
+      &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(map-get($colors, 'primary'), 0.25);
+      }
+      
+      &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+      }
+      
+      &-icon {
+        margin-right: $spacing-xs;
+        
+        svg {
+          width: 1.6rem;
+          height: 1.6rem;
+          fill: currentColor;
+        }
+      }
+    }
+    
+    &-cancel {
+      margin-left: $spacing-md;
+      color: var(--color-text-muted);
+      font-size: 1.4rem;
+      text-decoration: none;
+      
+      &:hover {
+        color: var(--color-text);
+        text-decoration: underline;
+      }
+    }
+    
+    &-preview {
+      margin-top: $spacing-lg;
+      padding: $spacing-md;
+      background-color: var(--color-bg-alt);
+      border-radius: $border-radius;
+      border: 1px solid var(--color-border);
+      
+      &-title {
+        font-size: 1.4rem;
+        font-weight: $font-weight-bold;
+        margin: 0 0 $spacing-sm;
+        color: var(--color-text);
+      }
+      
+      &-content {
+        font-size: 1.5rem;
+        line-height: 1.7;
+        color: var(--color-text);
+        
+        p {
+          margin: 0 0 $spacing-sm;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    
+    &-disclaimer {
+      font-size: 1.3rem;
+      color: var(--color-text-muted);
+      margin: $spacing-md 0 0;
+      line-height: 1.6;
+      
+      a {
+        color: var(--color-text-muted);
+        text-decoration: underline;
+        
+        &:hover {
+          color: var(--color-text);
+        }
+      }
+    }
+  }
+  
+  // Empty state
+  &-empty {
+    text-align: center;
+    padding: $spacing-xxl 0;
+    
+    &-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 8rem;
+      height: 8rem;
+      background-color: var(--color-bg-alt);
+      border-radius: 50%;
+      margin-bottom: $spacing-lg;
+      
+      svg {
+        width: 3.2rem;
+        height: 3.2rem;
+        color: var(--color-text-muted);
+      }
+    }
+    
+    &-title {
+      font-size: 2.4rem;
+      font-weight: $font-weight-bold;
+      margin: 0 0 $spacing-sm;
+      color: var(--color-text);
+    }
+    
+    &-description {
+      font-size: 1.6rem;
+      color: var(--color-text-muted);
+      max-width: 50rem;
+      margin: 0 auto $spacing-lg;
+      line-height: 1.6;
+    }
+    
+    &-button {
+      display: inline-flex;
+      align-items: center;
+      padding: $spacing-sm $spacing-lg;
+      font-size: 1.5rem;
+      font-weight: $font-weight-bold;
+      line-height: 1.5;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      user-select: none;
+      background-color: map-get($colors, 'primary');
+      border: 1px solid transparent;
+      border-radius: $border-radius;
+      transition: all 0.2s ease-in-out;
+      text-decoration: none;
+      
+      &:hover {
+        background-color: darken(map-get($colors, 'primary'), 10%);
+        text-decoration: none;
+        color: #fff;
+      }
+      
+      svg {
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-right: $spacing-xs;
+        fill: currentColor;
+      }
+    }
+  }
+  
+  // Loading state
+  &-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-xxl 0;
+    
+    &-spinner {
+      width: 3.2rem;
+      height: 3.2rem;
+      border: 0.3rem solid var(--color-border);
+      border-top-color: map-get($colors, 'primary');
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    
+    &-text {
+      margin-left: $spacing-sm;
+      font-size: 1.4rem;
+      color: var(--color-text-muted);
+    }
+  }
+  
+  // Pagination
+  &-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: $spacing-xxl;
+    
+    &-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 4rem;
+      height: 4rem;
+      padding: 0 $spacing-sm;
+      margin: 0 $spacing-xxs;
+      font-size: 1.4rem;
+      font-weight: $font-weight-medium;
+      color: var(--color-text);
+      text-decoration: none;
+      border-radius: $border-radius;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: var(--color-bg-alt);
+        text-decoration: none;
+      }
+      
+      &.is-active {
+        background-color: map-get($colors, 'primary');
+        color: #fff;
+        font-weight: $font-weight-bold;
+        
+        &:hover {
+          background-color: darken(map-get($colors, 'primary'), 10%);
+        }
+      }
+      
+      &--prev,
+      &--next {
+        padding: 0 $spacing-md;
+        
+        svg {
+          width: 1.6rem;
+          height: 1.6rem;
+          fill: currentColor;
+        }
+      }
+      
+      &--prev {
+        margin-right: $spacing-sm;
+        
+        svg {
+          margin-right: $spacing-xs;
+        }
+      }
+      
+      &--next {
+        margin-left: $spacing-sm;
+        
+        svg {
+          margin-left: $spacing-xs;
+        }
+      }
+      
+      &--dots {
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+// Dark mode specific styles
+[data-theme="dark"] {
+  .comments {
+    &-item {
+      &--highlighted {
+        .comments-item-inner {
+          background-color: rgba(255, 255, 255, 0.02);
+        }
+      }
+    }
+    
+    &-form {
+      &-preview {
+        background-color: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+    
+    &-empty-icon {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
